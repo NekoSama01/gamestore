@@ -22,10 +22,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
           useMaterial3: true,
         ),
-        home: const MyHomePage(title: 'แอพบัญชี'),
+        home: const MyHomePage(title: 'แอพบัญชี' ),
       ),
     );
   }
@@ -63,6 +63,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   return FormScreen();
                 }));
               },
+              color: const Color.fromARGB(255, 255, 255, 255),
+              iconSize: 40.0,
             ),
           ],
         ),
@@ -77,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
                   child: ListTile(
                     title: Text(provider.transactions[index].title),
-                    subtitle: Text(provider.transactions[index].date.toString()),
+                    subtitle: Text(provider.transactions[index].genre),
                     leading: CircleAvatar(
                       radius: 50,
                       child: FittedBox(

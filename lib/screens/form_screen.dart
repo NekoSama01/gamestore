@@ -9,13 +9,14 @@ class FormScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final amountController = TextEditingController();
+  final genreController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
   
     return Scaffold(
         appBar: AppBar(
-          title: const Text('แบบฟอร์มข้อมูล'),
+          title: const Text('แบบฟอร์มเพิ่มข้อมูลเกม'),
         ),
         body: Form(
             key: formKey,
@@ -24,6 +25,19 @@ class FormScreen extends StatelessWidget {
                 TextFormField(
                   decoration: const InputDecoration(
                     labelText: 'ชื่อเกม',
+                  ),
+                  autofocus: true,
+                  controller: titleController,
+                  validator: (String? str) {
+                    if (str!.isEmpty) {
+                      return 'กรุณากรอกข้อมูล';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'ประเภทของเกม',
                   ),
                   autofocus: true,
                   controller: titleController,
@@ -53,7 +67,7 @@ class FormScreen extends StatelessWidget {
                   },
                 ),
                 TextButton(
-                    child: const Text('บันทึก'),
+                    child: const Text('ยืนยันการบันทึก'),
                     onPressed: () {
                           if (formKey.currentState!.validate())
                             {
@@ -61,7 +75,8 @@ class FormScreen extends StatelessWidget {
                               var statement = Transaction(
                                   title: titleController.text,
                                   amount: double.parse(amountController.text),
-                                  date: DateTime.now()
+                                  genre: genreController.text,
+                                  //date: DateTime.now()
                                   );
                             
                               // add transaction data object to provider
