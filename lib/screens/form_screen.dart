@@ -1,4 +1,4 @@
-import 'package:account/models/transaction.dart';
+import 'package:account/models/transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:account/provider/transaction_provider.dart';
@@ -9,14 +9,12 @@ class FormScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final amountController = TextEditingController();
-  final genreController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
         appBar: AppBar(
-          title: const Text('แบบฟอร์มเพิ่มข้อมูลเกม'),
+          title: const Text('แบบฟอร์มข้อมูล'),
         ),
         body: Form(
             key: formKey,
@@ -24,28 +22,14 @@ class FormScreen extends StatelessWidget {
               children: [
                 TextFormField(
                   decoration: const InputDecoration(
-                    labelText: 'ชื่อเกม',
+                    labelText: 'ชื่อรายการ',
                   ),
-                  autofocus: true,
+                  autofocus: false,
                   controller: titleController,
                   validator: (String? str) {
                     if (str!.isEmpty) {
                       return 'กรุณากรอกข้อมูล';
                     }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'ประเภทของเกม',
-                  ),
-                  autofocus: true,
-                  controller: titleController,
-                  validator: (String? str) {
-                    if (str!.isEmpty) {
-                      return 'กรุณากรอกข้อมูล';
-                    }
-                    return null;
                   },
                 ),
                 TextFormField(
@@ -63,30 +47,25 @@ class FormScreen extends StatelessWidget {
                     } catch (e) {
                       return 'กรุณากรอกข้อมูลเป็นตัวเลข';
                     }
-                    return null;
                   },
                 ),
                 TextButton(
-                    child: const Text('ยืนยันการบันทึก'),
+                    child: const Text('บันทึก'),
                     onPressed: () {
-                          if (formKey.currentState!.validate())
-                            {
-                              // create transaction data object
-                              var statement = Transaction(
-                                  title: titleController.text,
-                                  amount: double.parse(amountController.text),
-                                  genre: genreController.text,
-                                  //date: DateTime.now()
-                                  );
-                            
-                              // add transaction data object to provider
-                              var provider = Provider.of<TransactionProvider>(context, listen: false);
-                              
-                              provider.addTransaction(statement);
+                      if (formKey.currentState!.validate()) {
+                        // create transaction data object
+                        Transactions statement = Transactions(
+                            title: titleController.text,
+                            amount: double.parse(amountController.text),
+                            date: DateTime.now());
 
-                              Navigator.pop(context);
-                            }
-                        })
+                        // add transaction data object to provider
+                        var provider = Provider.of<TransactionProvider>(context,
+                            listen: false);
+                        provider.addTransaction(statement);
+                        Navigator.pop(context);
+                      }
+                    })
               ],
             )));
   }
