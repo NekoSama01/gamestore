@@ -41,7 +41,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   }));
                 },
               ),
-            )
+            ),CircleAvatar(
+              radius: 22,
+              backgroundColor: Colors.white,
+              child: IconButton(
+                icon: const Icon(Icons.delete),
+                onPressed: () {
+                  
+                },
+              ),
+            ),
           ],
         ),
         body: Consumer(
