@@ -46,10 +46,10 @@ class TransactionProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteTransaction(int index) async{
+  void deleteTransaction(int keyid) async{
     var db = await TransactionDB(dbName: 'transactions.db');
-    await db.deleteDb(index);
-    transactions.removeAt(index);
+    await db.deleteDb(keyid);
+    transactions.removeAt(keyid);
     notifyListeners(); 
   }
 

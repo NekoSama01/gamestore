@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
 class Transactions {
-  late String? keyid;
+  late int? keyid;
   final String title;
   final double amount;
   final DateTime date;

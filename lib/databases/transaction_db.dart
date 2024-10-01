@@ -47,7 +47,7 @@ class TransactionDB{
     for(var record in snapshot) {
       transactionlist.add(
         Transactions(
-          keyid: record.key.toString,
+          keyid: record.key,
           title: record["title"].toString(),
           amount: double.parse(record["amount"].toString()),
           date: DateTime.parse(record["date"].toString()),

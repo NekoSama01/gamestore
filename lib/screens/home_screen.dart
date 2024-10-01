@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       trailing: IconButton(
                         icon: const Icon(Icons.delete),
                         onPressed: () {
-                          provider.deleteTransaction(index);
+                          provider.deleteTransaction(statement.keyid);
                         },
                       ),
                     ),
