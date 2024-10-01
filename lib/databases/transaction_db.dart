@@ -47,7 +47,8 @@ class TransactionDB{
     for(var record in snapshot) {
       transactionlist.add(
         Transactions(
-          title:record["title"].toString(),
+          keyid: record.key.toString,
+          title: record["title"].toString(),
           amount: double.parse(record["amount"].toString()),
           date: DateTime.parse(record["date"].toString()),
         )
@@ -57,10 +58,9 @@ class TransactionDB{
   }
 
   //ลบข้อมูลในdatabase
-  Future<void> deleteDb(int key) async{
+  Future<void> deleteDb(int index) async{
     var db = await this.openDB();
     var store = intMapStoreFactory.store('expense');
-    var record = store.record(key);
-    await store.delete(db);
+    await store.delete(db, finder: Finder(.equals(Field.key, value)));
   }
 }
