@@ -58,9 +58,9 @@ class TransactionDB{
   }
 
   //ลบข้อมูลในdatabase
-  Future<void> deleteDb(int index) async{
+  Future<void> deleteDb(int keyid) async{
     var db = await this.openDB();
     var store = intMapStoreFactory.store('expense');
-    await store.delete(db, finder: Finder(.equals(Field.key, value)));
+    await store.delete(db, finder: Finder(filter: Filter.equals(Field.key, keyid)));
   }
 }
