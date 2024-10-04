@@ -1,4 +1,5 @@
 import 'package:account/provider/transaction_provider.dart';
+import 'package:account/screens/edit_screen.dart';
 import 'package:account/screens/form_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text(
                   'ไม่มีรายการ',
                   style: TextStyle(fontSize: 20),
-                ), 
+                ),
               );
             } else {
               return ListView.builder(
@@ -75,9 +76,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       trailing: IconButton(
                         icon: const Icon(Icons.delete),
                         onPressed: () {
-                          provider.deleteTransaction(int.parse(statement.keyid.toString()));
+                          provider.deleteTransaction(
+                              int.parse(statement.keyid.toString()));
                         },
                       ),
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return EditScreen(statement: statement);
+                        }));
+                      },
                     ),
                   );
                 },

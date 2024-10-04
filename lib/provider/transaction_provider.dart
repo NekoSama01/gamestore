@@ -30,14 +30,14 @@ class TransactionProvider with ChangeNotifier {
       finder : finder,
     );
   }*/
-  
+
   List<Transactions> transactions = [];
 
   List<Transactions> getTransaction() {
     return transactions;
   }
 
-  void addTransaction(Transactions statement) async{
+  void addTransaction(Transactions statement) async {
     var db = await TransactionDB(dbName: 'transactions.db');
     await db.insertDatabase(statement);
     //ดึงข้อมูลมา
@@ -46,17 +46,23 @@ class TransactionProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteTransaction(int keyid) async{
-    print("delete index: $keyid");
+  void deleteTransaction(int index) async {
     var db = await TransactionDB(dbName: 'transactions.db');
-    await db.deleteDb(keyid);
-    this.transactions.removeAt(keyid);
-    notifyListeners(); 
+    await db.deleteDb(index);
+    this.transactions.removeAt(index);
+    notifyListeners();
   }
 
-  void initData() async{
+  void initData() async {
     var db = TransactionDB(dbName: 'transactions.db');
     transactions = await db.loadAllData();
+    notifyListeners();
+  }
+
+  void updateTransaction(Transactions statement) async {
+    var db = TransactionDB(dbName: 'transactions.db');
+    await db.updateDatabase(statement);
+    this.transactions = await db.loadAllData();
     notifyListeners();
   }
 }
