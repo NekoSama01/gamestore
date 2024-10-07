@@ -37,31 +37,31 @@ class TransactionProvider with ChangeNotifier {
     return transactions;
   }
 
-  void addTransaction(Transactions statement) async {
-    var db = await TransactionDB(dbName: 'transactions.db');
-    await db.insertDatabase(statement);
+  void addTransaction(Transactions game) async {
+    var db = await TransactionDB(dbName: 'gamestorage.db');
+    await db.insertDatabase(game);
     //ดึงข้อมูลมา
     transactions = await db.loadAllData();
     //แจ้งู้ใช้
     notifyListeners();
   }
 
-  void deleteTransaction(int index) async {
-    var db = await TransactionDB(dbName: 'transactions.db');
-    await db.deleteDb(index);
-    this.transactions.removeAt(index);
+  void deleteTransaction(int keyid) async {
+    var db = await TransactionDB(dbName: 'gamestorage.db');
+    await db.deleteDb(keyid);
+    this.transactions.removeAt(keyid);
     notifyListeners();
   }
 
   void initData() async {
-    var db = TransactionDB(dbName: 'transactions.db');
+    var db = TransactionDB(dbName: 'gamestorage.db');
     transactions = await db.loadAllData();
     notifyListeners();
   }
 
-  void updateTransaction(Transactions statement) async {
-    var db = TransactionDB(dbName: 'transactions.db');
-    await db.updateDatabase(statement);
+  void updateTransaction(Transactions game) async {
+    var db = TransactionDB(dbName: 'gamestorage.db');
+    await db.updateDatabase(game);
     this.transactions = await db.loadAllData();
     notifyListeners();
   }

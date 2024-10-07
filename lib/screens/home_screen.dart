@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
                     child: ListTile(
                       title: Text(game.name),
-                      subtitle: Text(game.genre),
+                      subtitle: Text("Genre: ${game.genre} and Agerecommend:${game.agerec.toString()}+"),
                       leading: CircleAvatar(
                         radius: 30,
                         child: FittedBox(

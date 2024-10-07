@@ -24,7 +24,7 @@ class TransactionDB {
   //เพิ่มข้อมูลเข้าstore
   Future<int> insertDatabase(Transactions statement) async {
     var db = await this.openDB();
-    var store = intMapStoreFactory.store('storage');
+    var store = intMapStoreFactory.store('stores');
 
     var keyID = store.add(db, {
       "name": statement.name,
@@ -41,7 +41,7 @@ class TransactionDB {
   //old to new = true
   Future<List<Transactions>> loadAllData() async {
     var db = await this.openDB();
-    var store = intMapStoreFactory.store('storage');
+    var store = intMapStoreFactory.store('stores');
     var snapshot = await store.find(db,
         finder: Finder(sortOrders: [SortOrder(Field.key, false)]));
     print(snapshot);
@@ -49,7 +49,7 @@ class TransactionDB {
     for (var record in snapshot) {
       transactionlist.add(Transactions(
         keyid: record.key,
-        name: record["title"].toString(),
+        name: record["name"].toString(),
         amount: double.parse(record["amount"].toString()),
         genre: record["genre"].toString(),
         agerec: int.parse(record["agerec"].toString()),
@@ -62,21 +62,21 @@ class TransactionDB {
   //ลบข้อมูลในdatabase
   Future<void> deleteDb(int keyid) async {
     var db = await this.openDB();
-    var store = intMapStoreFactory.store('storage');
+    var store = intMapStoreFactory.store('stores');
     await store.delete(db,
         finder: Finder(filter: Filter.equals(Field.key, keyid)));
     db.close();
   }
 
-  updateDatabase(Transactions statement) async {
+  updateDatabase(Transactions game) async {
     var db = await this.openDB();
-    var store = intMapStoreFactory.store('storage');
-    var filter = Finder(filter: Filter.equals(Field.key, statement.keyid));
+    var store = intMapStoreFactory.store('stores');
+    var filter = Finder(filter: Filter.equals(Field.key, game.keyid));
     var result = store.update(db, finder: filter, {
-      "name": statement.name,
-      "amount": statement.amount,
-      "genre": statement.genre,
-      "agerec": statement.agerec,
+      "name": game.name,
+      "amount": game.amount,
+      "genre": game.genre,
+      "agerec": game.agerec,
     });
     db.close();
     print("update result: $result");

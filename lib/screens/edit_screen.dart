@@ -18,7 +18,7 @@ class EditScreen extends StatefulWidget {
 class _EditScreen extends State<EditScreen> {
   var formKey = GlobalKey<FormState>();
 
-  var titleController = TextEditingController();
+  var nameController = TextEditingController();
 
   var amountController = TextEditingController();
 
@@ -29,7 +29,7 @@ class _EditScreen extends State<EditScreen> {
   @override
   Widget build(BuildContext context) {
 
-    titleController.text = widget.game.name;
+    nameController.text = widget.game.name;
     amountController.text = widget.game.amount.toString();
     genreController.text = widget.game.genre;
     agerecController.text = widget.game.agerec.toString();
@@ -47,7 +47,7 @@ class _EditScreen extends State<EditScreen> {
                     labelText: 'ชื่อรายการ',
                   ),
                   autofocus: false,
-                  controller: titleController,
+                  controller: nameController,
                   validator: (String? str) {
                     if (str!.isEmpty) {
                       return 'กรุณากรอกข้อมูล';
@@ -59,7 +59,7 @@ class _EditScreen extends State<EditScreen> {
                     labelText: 'ระเภทของเกม',
                   ),
                   autofocus: false,
-                  controller: titleController,
+                  controller: genreController,
                   validator: (String? str) {
                     if (str!.isEmpty) {
                       return 'กรุณากรอกข้อมูล';
@@ -102,7 +102,7 @@ class _EditScreen extends State<EditScreen> {
                         // create transaction data object
                         Transactions statement = Transactions(
                             keyid: widget.game.keyid,
-                            name: titleController.text,
+                            name: widget.game.name,
                             amount: double.parse(amountController.text),
                             genre: widget.game.genre,
                             agerec: int.parse(agerecController.text));

@@ -8,7 +8,7 @@ class FormScreen extends StatelessWidget {
   FormScreen({super.key});
 
   final formKey = GlobalKey<FormState>();
-  final titleController = TextEditingController();
+  final nameController = TextEditingController();
   final amountController = TextEditingController();
   final genreController = TextEditingController();
   final agerecController = TextEditingController();
@@ -28,7 +28,7 @@ class FormScreen extends StatelessWidget {
                     labelText: 'ชื่อเกม',
                   ),
                   autofocus: false,
-                  controller: titleController,
+                  controller: nameController,
                   validator: (String? str) {
                     if (str!.isEmpty) {
                       return 'กรุณากรอกข้อมูล';
@@ -81,9 +81,9 @@ class FormScreen extends StatelessWidget {
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         // create transaction data object
-                        Transactions statement = Transactions(
+                        Transactions game = Transactions(
                             keyid: null,
-                            name: titleController.text,
+                            name: nameController.text,
                             amount: double.parse(amountController.text),
                             genre: genreController.text,
                             agerec: int.parse(agerecController.text));
@@ -91,7 +91,7 @@ class FormScreen extends StatelessWidget {
                         // add transaction data object to provider
                         var provider = Provider.of<TransactionProvider>(context,
                             listen: false);
-                        provider.addTransaction(statement);
+                        provider.addTransaction(game);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

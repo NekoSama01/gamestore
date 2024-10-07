@@ -21,9 +21,9 @@ class MyApp extends StatelessWidget {
         }),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'แอพข้อมูลเกม',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
           useMaterial3: true,
         ),
         home: const MyHomePage(),
