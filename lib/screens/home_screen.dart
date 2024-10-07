@@ -33,13 +33,11 @@ class _HomeScreenState extends State<HomeScreen> {
               radius: 22,
               backgroundColor: Colors.white,
               child: IconButton(
-                icon: const Icon(Icons.add),
+                icon: const Icon(Icons.exit_to_app),
                 iconSize: 30,
                 color: Colors.black,
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return FormScreen();
-                  }));
+                  SystemNavigator.pop();
                 },
               ),
             ),
@@ -58,32 +56,31 @@ class _HomeScreenState extends State<HomeScreen> {
               return ListView.builder(
                 itemCount: provider.transactions.length,
                 itemBuilder: (context, index) {
-                  var statement = provider.transactions[index];
+                  var game = provider.transactions[index];
                   return Card(
                     elevation: 5,
                     margin:
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
                     child: ListTile(
-                      title: Text(statement.title),
-                      subtitle: Text(DateFormat('dd MMM yyyy hh:mm:ss')
-                          .format(statement.date)),
+                      title: Text(game.name),
+                      subtitle: Text(game.genre),
                       leading: CircleAvatar(
                         radius: 30,
                         child: FittedBox(
-                          child: Text('${statement.amount}'),
+                          child: Text('฿ ${game.amount}'),
                         ),
                       ),
                       trailing: IconButton(
                         icon: const Icon(Icons.delete),
                         onPressed: () {
                           provider.deleteTransaction(
-                              int.parse(statement.keyid.toString()));
+                              int.parse(game.keyid.toString()));
                         },
                       ),
                       onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return EditScreen(statement: statement);
+                          return EditScreen(game: game);
                         }));
                       },
                     ),

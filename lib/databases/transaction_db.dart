@@ -24,12 +24,13 @@ class TransactionDB {
   //เพิ่มข้อมูลเข้าstore
   Future<int> insertDatabase(Transactions statement) async {
     var db = await this.openDB();
-    var store = intMapStoreFactory.store('expense');
+    var store = intMapStoreFactory.store('storage');
 
     var keyID = store.add(db, {
-      "title": statement.title,
+      "name": statement.name,
       "amount": statement.amount,
-      "date": statement.date.toIso8601String()
+      "genre": statement.genre,
+      "agerec": statement.agerec,
     });
     db.close();
     return keyID;
@@ -40,7 +41,7 @@ class TransactionDB {
   //old to new = true
   Future<List<Transactions>> loadAllData() async {
     var db = await this.openDB();
-    var store = intMapStoreFactory.store('expense');
+    var store = intMapStoreFactory.store('storage');
     var snapshot = await store.find(db,
         finder: Finder(sortOrders: [SortOrder(Field.key, false)]));
     print(snapshot);
@@ -48,9 +49,10 @@ class TransactionDB {
     for (var record in snapshot) {
       transactionlist.add(Transactions(
         keyid: record.key,
-        title: record["title"].toString(),
+        name: record["title"].toString(),
         amount: double.parse(record["amount"].toString()),
-        date: DateTime.parse(record["date"].toString()),
+        genre: record["genre"].toString(),
+        agerec: int.parse(record["agerec"].toString()),
       ));
     }
     db.close();
@@ -60,7 +62,7 @@ class TransactionDB {
   //ลบข้อมูลในdatabase
   Future<void> deleteDb(int keyid) async {
     var db = await this.openDB();
-    var store = intMapStoreFactory.store('expense');
+    var store = intMapStoreFactory.store('storage');
     await store.delete(db,
         finder: Finder(filter: Filter.equals(Field.key, keyid)));
     db.close();
@@ -68,12 +70,13 @@ class TransactionDB {
 
   updateDatabase(Transactions statement) async {
     var db = await this.openDB();
-    var store = intMapStoreFactory.store('expense');
+    var store = intMapStoreFactory.store('storage');
     var filter = Finder(filter: Filter.equals(Field.key, statement.keyid));
     var result = store.update(db, finder: filter, {
-      "title": statement.title,
+      "name": statement.name,
       "amount": statement.amount,
-      "date": statement.date.toIso8601String()
+      "genre": statement.genre,
+      "agerec": statement.agerec,
     });
     db.close();
     print("update result: $result");

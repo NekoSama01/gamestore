@@ -10,6 +10,8 @@ class FormScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final amountController = TextEditingController();
+  final genreController = TextEditingController();
+  final agerecController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class FormScreen extends StatelessWidget {
               children: [
                 TextFormField(
                   decoration: const InputDecoration(
-                    labelText: 'ชื่อรายการ',
+                    labelText: 'ชื่อเกม',
                   ),
                   autofocus: false,
                   controller: titleController,
@@ -35,7 +37,19 @@ class FormScreen extends StatelessWidget {
                 ),
                 TextFormField(
                   decoration: const InputDecoration(
-                    labelText: 'จำนวนเงิน',
+                    labelText: 'ประเภทของเกม',
+                  ),
+                  autofocus: false,
+                  controller: genreController,
+                  validator: (String? str) {
+                    if (str!.isEmpty) {
+                      return 'กรุณากรอกข้อมูล';
+                    }
+                  },
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'ราคา',
                   ),
                   keyboardType: TextInputType.number,
                   controller: amountController,
@@ -50,6 +64,18 @@ class FormScreen extends StatelessWidget {
                     }
                   },
                 ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'อายุที่แนะนำ',
+                  ),
+                  autofocus: false,
+                  controller: agerecController,
+                  validator: (String? str) {
+                    if (str!.isEmpty) {
+                      return 'กรุณากรอกข้อมูล';
+                    }
+                  },
+                ),
                 TextButton(
                     child: const Text('บันทึก'),
                     onPressed: () {
@@ -57,9 +83,10 @@ class FormScreen extends StatelessWidget {
                         // create transaction data object
                         Transactions statement = Transactions(
                             keyid: null,
-                            title: titleController.text,
+                            name: titleController.text,
                             amount: double.parse(amountController.text),
-                            date: DateTime.now());
+                            genre: genreController.text,
+                            agerec: int.parse(agerecController.text));
 
                         // add transaction data object to provider
                         var provider = Provider.of<TransactionProvider>(context,

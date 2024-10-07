@@ -7,9 +7,9 @@ import 'package:provider/provider.dart';
 
 class EditScreen extends StatefulWidget {
   
-  Transactions statement;
+  Transactions game;
   
-  EditScreen({super.key, required this.statement});
+  EditScreen({super.key, required this.game});
 
   @override
   State<EditScreen> createState() => _EditScreen();
@@ -22,11 +22,17 @@ class _EditScreen extends State<EditScreen> {
 
   var amountController = TextEditingController();
 
+  var genreController = TextEditingController();
+
+  var agerecController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
 
-    titleController.text = widget.statement.title;
-    amountController.text = widget.statement.amount.toString();
+    titleController.text = widget.game.name;
+    amountController.text = widget.game.amount.toString();
+    genreController.text = widget.game.genre;
+    agerecController.text = widget.game.agerec.toString();
 
     return Scaffold(
         appBar: AppBar(
@@ -39,6 +45,18 @@ class _EditScreen extends State<EditScreen> {
                 TextFormField(
                   decoration: const InputDecoration(
                     labelText: 'ชื่อรายการ',
+                  ),
+                  autofocus: false,
+                  controller: titleController,
+                  validator: (String? str) {
+                    if (str!.isEmpty) {
+                      return 'กรุณากรอกข้อมูล';
+                    }
+                  },
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'ระเภทของเกม',
                   ),
                   autofocus: false,
                   controller: titleController,
@@ -65,16 +83,29 @@ class _EditScreen extends State<EditScreen> {
                     }
                   },
                 ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'อายุที่แนะนำ',
+                  ),
+                  autofocus: false,
+                  controller: agerecController,
+                  validator: (String? str) {
+                    if (str!.isEmpty) {
+                      return 'กรุณากรอกข้อมูล';
+                    }
+                  },
+                ),
                 TextButton(
                     child: const Text('บันทึก'),
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         // create transaction data object
                         Transactions statement = Transactions(
-                            keyid: widget.statement.keyid,
-                            title: titleController.text,
+                            keyid: widget.game.keyid,
+                            name: titleController.text,
                             amount: double.parse(amountController.text),
-                            date: DateTime.now());
+                            genre: widget.game.genre,
+                            agerec: int.parse(agerecController.text));
 
                         // add transaction data object to provider
                         var provider = Provider.of<TransactionProvider>(context,

@@ -2,15 +2,17 @@ import 'package:meta/meta.dart';
 
 class Transactions {
   late int? keyid;
-  final String title;
+  final String name;
   final double amount;
-  final DateTime date;
+  final String genre;
+  final int agerec;
 
   Transactions({
     this.keyid,
-    required this.title,
+    required this.name,
     required this.amount,
-    required this.date,
+    required this.genre,
+    required this.agerec,
   });
 
   /*Map<String, dynamic> toMap(){
