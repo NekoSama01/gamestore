@@ -49,7 +49,7 @@ class TransactionProvider with ChangeNotifier {
   void deleteTransaction(int keyid) async {
     var db = await TransactionDB(dbName: 'gamestorage.db');
     await db.deleteDb(keyid);
-    this.transactions.removeAt(keyid);
+    this.transactions = await db.loadAllData();
     notifyListeners();
   }
 
