@@ -1,7 +1,6 @@
 import 'package:account/main.dart';
 import 'package:account/models/transactions.dart';
 import 'package:account/provider/transaction_provider.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -52,6 +51,7 @@ class _EditScreen extends State<EditScreen> {
                     if (str!.isEmpty) {
                       return 'กรุณากรอกข้อมูล';
                     }
+                    return null;
                   },
                 ),
                 TextFormField(
@@ -64,6 +64,7 @@ class _EditScreen extends State<EditScreen> {
                     if (str!.isEmpty) {
                       return 'กรุณากรอกข้อมูล';
                     }
+                    return null;
                   },
                 ),
                 TextFormField(
@@ -81,6 +82,7 @@ class _EditScreen extends State<EditScreen> {
                     } catch (e) {
                       return 'กรุณากรอกข้อมูลเป็นตัวเลข';
                     }
+                    return null;
                   },
                 ),
                 TextFormField(
@@ -93,6 +95,7 @@ class _EditScreen extends State<EditScreen> {
                     if (str!.isEmpty) {
                       return 'กรุณากรอกข้อมูล';
                     }
+                    return null;
                   },
                 ),
                 TextButton(
@@ -116,7 +119,7 @@ class _EditScreen extends State<EditScreen> {
                             MaterialPageRoute(
                                 fullscreenDialog: true,
                                 builder: (context) {
-                                  return MyHomePage();
+                                  return const MyHomePage();
                                 }));
                       }
                     })

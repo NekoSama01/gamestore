@@ -1,7 +1,6 @@
 import 'package:account/databases/transaction_db.dart';
 import 'package:flutter/foundation.dart';
 import 'package:account/models/transactions.dart';
-import 'package:sembast/sembast.dart';
 
 class TransactionProvider with ChangeNotifier {
   /*static const String GAME_STORE_NAME = 'games';
@@ -38,7 +37,7 @@ class TransactionProvider with ChangeNotifier {
   }
 
   void addTransaction(Transactions game) async {
-    var db = await TransactionDB(dbName: 'gamestorage.db');
+    var db = TransactionDB(dbName: 'gamestorage.db');
     await db.insertDatabase(game);
     //ดึงข้อมูลมา
     transactions = await db.loadAllData();
@@ -47,9 +46,9 @@ class TransactionProvider with ChangeNotifier {
   }
 
   void deleteTransaction(int keyid) async {
-    var db = await TransactionDB(dbName: 'gamestorage.db');
+    var db = TransactionDB(dbName: 'gamestorage.db');
     await db.deleteDb(keyid);
-    this.transactions = await db.loadAllData();
+    transactions = await db.loadAllData();
     notifyListeners();
   }
 
@@ -62,7 +61,7 @@ class TransactionProvider with ChangeNotifier {
   void updateTransaction(Transactions game) async {
     var db = TransactionDB(dbName: 'gamestorage.db');
     await db.updateDatabase(game);
-    this.transactions = await db.loadAllData();
+    transactions = await db.loadAllData();
     notifyListeners();
   }
 }

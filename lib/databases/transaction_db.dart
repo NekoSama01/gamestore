@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast.dart';
@@ -23,7 +22,7 @@ class TransactionDB {
 
   //เพิ่มข้อมูลเข้าstore
   Future<int> insertDatabase(Transactions statement) async {
-    var db = await this.openDB();
+    var db = await openDB();
     var store = intMapStoreFactory.store('stores');
 
     var keyID = store.add(db, {
@@ -40,7 +39,7 @@ class TransactionDB {
   //new to old = false
   //old to new = true
   Future<List<Transactions>> loadAllData() async {
-    var db = await this.openDB();
+    var db = await openDB();
     var store = intMapStoreFactory.store('stores');
     var snapshot = await store.find(db,
         finder: Finder(sortOrders: [SortOrder(Field.key, false)]));
@@ -61,7 +60,7 @@ class TransactionDB {
 
   //ลบข้อมูลในdatabase
   Future<void> deleteDb(int keyid) async {
-    var db = await this.openDB();
+    var db = await openDB();
     var store = intMapStoreFactory.store('stores');
     await store.delete(db,
         finder: Finder(filter: Filter.equals(Field.key, keyid)));
@@ -69,7 +68,7 @@ class TransactionDB {
   }
 
   updateDatabase(Transactions game) async {
-    var db = await this.openDB();
+    var db = await openDB();
     var store = intMapStoreFactory.store('stores');
     var filter = Finder(filter: Filter.equals(Field.key, game.keyid));
     var result = store.update(db, finder: filter, {

@@ -1,12 +1,8 @@
 import 'package:account/provider/transaction_provider.dart';
 import 'package:account/screens/edit_screen.dart';
-import 'package:account/screens/form_screen.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:account/models/transactions.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -27,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
-          title: Text("แอพข้อมูลเกม"),
+          title: const Text("แอพข้อมูลเกม"),
           actions: [
             CircleAvatar(
               radius: 22,

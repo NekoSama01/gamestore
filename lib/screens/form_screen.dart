@@ -33,6 +33,7 @@ class FormScreen extends StatelessWidget {
                     if (str!.isEmpty) {
                       return 'กรุณากรอกข้อมูล';
                     }
+                    return null;
                   },
                 ),
                 TextFormField(
@@ -45,6 +46,7 @@ class FormScreen extends StatelessWidget {
                     if (str!.isEmpty) {
                       return 'กรุณากรอกข้อมูล';
                     }
+                    return null;
                   },
                 ),
                 TextFormField(
@@ -62,6 +64,7 @@ class FormScreen extends StatelessWidget {
                     } catch (e) {
                       return 'กรุณากรอกข้อมูลเป็นตัวเลข';
                     }
+                    return null;
                   },
                 ),
                 TextFormField(
@@ -74,6 +77,7 @@ class FormScreen extends StatelessWidget {
                     if (str!.isEmpty) {
                       return 'กรุณากรอกข้อมูล';
                     }
+                    return null;
                   },
                 ),
                 TextButton(
@@ -97,7 +101,7 @@ class FormScreen extends StatelessWidget {
                             MaterialPageRoute(
                                 fullscreenDialog: true,
                                 builder: (context) {
-                                  return MyHomePage();
+                                  return const MyHomePage();
                                 }));
                       }
                     })
